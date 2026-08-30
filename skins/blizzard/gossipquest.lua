@@ -252,18 +252,18 @@ pfUI:RegisterSkin("Gossip and Quest", function ()
       local scroll = _G[frameName..panel.."ScrollFrame"]
       scroll:SetHeight(330)
       SkinScrollbar(_G[scroll:GetName().."ScrollBar"])
-      CreateBackdrop(scroll, nil, true, .75)
+      CreateBackdrop(scroll, nil, true, 0)
 
       local bg = scroll:CreateTexture(nil, "LOW")
       bg:SetAllPoints()
-      bg:SetTexture(0, 0, 0, 0.75)
+      bg:SetTexture(0, 0, 0, .50)
 
       _G[fname.."MaterialTopLeft"].SetTexture = function(self, texture)
-        bg:SetTexture(0, 0, 0, 0.75)
+        bg:SetTexture(0, 0, 0, .50)
       end
 
       _G[fname.."MaterialTopLeft"].Hide = function()
-        bg:SetTexture(0, 0, 0, 0.75)
+        bg:SetTexture(0, 0, 0, .50)
       end
 
       _G[fname.."MaterialTopLeft"].Show = function() return end
