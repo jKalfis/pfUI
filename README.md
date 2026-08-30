@@ -8,5 +8,6 @@ Making changes on the gossipquest.lua to remove the blizzard's parchment texture
 
 ·all npcs/guards/quest givers/trainers have a black background windows with white text.
 
-·questlog - TO BE FIXED -
+·questlog - TO BE FIXED
+
 ·transparency on the black background (that substitutes the parchment texture) to be fixed to not be so oppac
