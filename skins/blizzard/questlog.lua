@@ -13,12 +13,21 @@ pfUI:RegisterSkin("Quest Log", function ()
     end
   end
 
+  local function SetGold(text)
+    if text then
+      text:SetTextColor(1, .82, 0, 1)
+      text:SetShadowColor(0, 0, 0, 1)
+      text:SetShadowOffset(1, -1)
+    end
+  end
+
   local function SetQuestLogTextWhite()
-    SetWhite(QuestLogQuestTitle)
+    SetGold(QuestLogQuestTitle)
+    SetGold(QuestLogDescriptionTitle)
     SetWhite(QuestLogObjectivesText)
-    SetWhite(QuestLogDescriptionTitle)
+    SetGold(QuestLogRewardTitleText)
+
     SetWhite(QuestLogQuestDescription)
-    SetWhite(QuestLogRewardTitleText)
     SetWhite(QuestLogRequiredMoneyText)
     SetWhite(QuestLogItemChooseText)
     SetWhite(QuestLogItemReceiveText)
