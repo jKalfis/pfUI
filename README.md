@@ -13,3 +13,5 @@ Modified `gossipquest.lua` and `questlog.lua`
 - Buttons/Dialog options/Dialog menus changed to white.
 
 Now it feels more pfUI style.
+
+Note: there are still some elements that use the parchment texture, like the signal posts, will work on them later.
