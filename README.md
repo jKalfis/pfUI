@@ -1,13 +1,15 @@
-Making changes on the `gossipquest.lua` to remove the blizzard's parchment texture on the background.
+**This is a fork from [brues-code/pfUI](https://github.com/brues-code/pfUI)**
 
-·parchment textured - removed and substituted for a black background.
+I really dislike the parchment texture that is defaulted by blizzard on the dialog windows, so i've made my personal changes.
 
-· titles, text - changed color to white for easier reading.
+**What was done:**
 
-·fixed buttons/dialog menus/ dialog options so they appear with white color also.
+Modified `gossipquest.lua` and `questlog.lua`
 
-·all npcs/guards/quest givers/trainers have a black background windows with white text.
+*Removed the parchment texture from the quest log and all npcs;
+*Background changed to black with a transparency of 50%;
+*Titles text changed to gold color;
+*Description text and Item Colors changed to white;
+*Buttons/Dialog options/Dialog menus changed to white.
 
-·`questlog.lua` - TO BE FIXED
-
-·transparency on the black background (that substitutes the parchment texture) to be fixed to not be so oppac
+Now it feels more pfUI style.
