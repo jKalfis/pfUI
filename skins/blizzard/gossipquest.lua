@@ -20,6 +20,14 @@ pfUI:RegisterSkin("Gossip and Quest", function ()
     end
   end
 
+  local function SetGold(text)
+    if text then
+      text:SetTextColor(1, .82, 0, 1)
+      text:SetShadowColor(0, 0, 0, 1)
+      text:SetShadowOffset(1, -1)
+    end
+  end
+
   local function SetButtonWhite(button)
     if not button then return end
 
@@ -58,34 +66,29 @@ pfUI:RegisterSkin("Gossip and Quest", function ()
   end
 
   local function SetQuestTextWhite()
-    local texts = {
-      QuestTitleText,
-      QuestDescriptionText,
-      QuestProgressTitleText,
-      QuestProgressText,
-      QuestProgressRequiredItemsText,
-      QuestProgressRequiredMoneyText,
-      QuestRewardTitleText,
-      QuestRewardText,
-      QuestRewardRewardTitleText,
-      QuestRewardItemChooseText,
-      QuestRewardItemReceiveText,
-      QuestRewardSpellLearnText,
-      QuestDetailItemReceiveText,
-      QuestDetailSpellLearnText,
-      GreetingText,
-      GossipGreetingText,
-      CurrentQuestsText,
-      AvailableQuestsText,
-      QuestObjectiveText,
-      QuestObjectivesText,
-      QuestObjectiveTitleText,
-      QuestObjectivesTitleText
-    }
+    SetGold(QuestTitleText)
+    SetGold(QuestProgressTitleText)
+    SetGold(QuestRewardTitleText)
+    SetGold(QuestProgressRequiredItemsText)
 
-    for _, text in pairs(texts) do
-      SetWhite(text)
-    end
+    SetWhite(QuestDescriptionText)
+    SetWhite(QuestProgressText)
+    SetWhite(QuestProgressRequiredMoneyText)
+    SetWhite(QuestRewardText)
+    SetWhite(QuestRewardRewardTitleText)
+    SetWhite(QuestRewardItemChooseText)
+    SetWhite(QuestRewardItemReceiveText)
+    SetWhite(QuestRewardSpellLearnText)
+    SetWhite(QuestDetailItemReceiveText)
+    SetWhite(QuestDetailSpellLearnText)
+    SetWhite(GreetingText)
+    SetWhite(GossipGreetingText)
+    SetWhite(CurrentQuestsText)
+    SetWhite(AvailableQuestsText)
+    SetWhite(QuestObjectiveText)
+    SetWhite(QuestObjectivesText)
+    SetWhite(QuestObjectiveTitleText)
+    SetWhite(QuestObjectivesTitleText)
 
     SetWhite(QuestFrameNpcNameText)
     SetWhite(GossipFrameNpcNameText)
