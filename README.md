@@ -14,4 +14,7 @@ Modified `gossipquest.lua` and `questlog.lua`
 
 Now it feels more pfUI style.
 
+**Some images**
+(https://x02.me/i/Q4WXS4.jpg)
+
 Note: there are still some elements that use the parchment texture, like the signal posts, will work on them later.
