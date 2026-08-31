@@ -16,7 +16,10 @@ Now it feels more pfUI style.
 
 **Some images**
 
-<p align="topleft"><img width=200"" src="https://x02.me/i/Q4WXS4.jpg" /></p> <p align="topcenter"><img width="200" src="https://x02.me/i/Z2WECX.jpg"/></p><p align="topright"><img width="200" src="https://x02.me/i/6HZ9W.jpg" /></p>
+<p><img width=200"" src="https://x02.me/i/Q4WXS4.jpg" /></p> <p><img width="200" src="https://x02.me/i/Z2WECX.jpg"/></p><p> <img width="200" src="https://x02.me/i/6HZ9W.jpg" /></p>
+<p><img width="200" src="https://x02.me/i/SVEJ3.jpg" /></p> <p><img width="200" src="https://x02.me/i/B4CB.jpg" /></p> <p><img width="200" src="https://x02.me/i/B4CB.jpg" /></p> 
 
 
-Note: there are still some elements that use the parchment texture, like the signal posts, will work on them later.
+Note: there are still some elements that use the parchment texture, like the signal posts (image below), will work on them later.
+
+<p><img width="200" src="https://x02.me/i/V8BE6H.jpg" /></p>
