@@ -65,6 +65,58 @@ pfUI:RegisterSkin("Gossip and Quest", function ()
     end
   end
 
+  local function SetQuestObjectivesTitleGold(frame)
+    if not frame then return end
+
+    local regions = {frame:GetRegions()}
+
+    for _, region in pairs(regions) do
+      if region and region:GetObjectType() == "FontString" then
+        local text = region:GetText()
+
+        if text then
+          local lower = string.lower(text)
+
+          if string.find(lower, "quest objectives") or lower == "objectives:" or lower == "objectives" then
+            SetGold(region)
+          end
+        end
+      end
+    end
+
+    local children = {frame:GetChildren()}
+
+    for _, child in pairs(children) do
+      SetQuestObjectivesTitleGold(child)
+    end
+  end
+
+  local function SetQuestRewardsTitleGold(frame)
+    if not frame then return end
+
+    local regions = {frame:GetRegions()}
+
+    for _, region in pairs(regions) do
+      if region and region:GetObjectType() == "FontString" then
+        local text = region:GetText()
+
+        if text then
+          local lower = string.lower(text)
+
+          if lower == "rewards" or lower == "rewards:" then
+            SetGold(region)
+          end
+        end
+      end
+    end
+
+    local children = {frame:GetChildren()}
+
+    for _, child in pairs(children) do
+      SetQuestRewardsTitleGold(child)
+    end
+  end
+
   local function SetQuestTextWhite()
     SetGold(QuestTitleText)
     SetGold(QuestProgressTitleText)
@@ -93,6 +145,12 @@ pfUI:RegisterSkin("Gossip and Quest", function ()
     SetWhite(QuestFrameNpcNameText)
     SetWhite(GossipFrameNpcNameText)
     SetGossipButtonsWhite()
+
+    SetQuestObjectivesTitleGold(QuestFrame)
+    SetQuestObjectivesTitleGold(GossipFrame)
+
+    SetQuestRewardsTitleGold(QuestFrame)
+    SetQuestRewardsTitleGold(GossipFrame)
   end
 
   do
@@ -184,6 +242,8 @@ pfUI:RegisterSkin("Gossip and Quest", function ()
     if QuestFrameRewardPanel_OnShow then
       hooksecurefunc("QuestFrameRewardPanel_OnShow", function()
         SetQuestTextWhite()
+        SetQuestRewardsTitleGold(QuestRewardScrollChildFrame)
+        SetQuestRewardsTitleGold(QuestFrameRewardPanel)
       end)
     end
 
