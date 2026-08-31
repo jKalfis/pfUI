@@ -5,6 +5,36 @@ pfUI:RegisterSkin("Quest Log", function ()
   _G.QUESTS_DISPLAYED = 23
   _G.MAX_WATCHABLE_QUESTS = 20 -- TODO
 
+  local function SetWhite(text)
+    if text then
+      text:SetTextColor(1, 1, 1, 1)
+      text:SetShadowColor(0, 0, 0, 1)
+      text:SetShadowOffset(1, -1)
+    end
+  end
+
+  local function SetQuestLogTextWhite()
+    SetWhite(QuestLogQuestTitle)
+    SetWhite(QuestLogObjectivesText)
+    SetWhite(QuestLogDescriptionTitle)
+    SetWhite(QuestLogQuestDescription)
+    SetWhite(QuestLogRewardTitleText)
+    SetWhite(QuestLogRequiredMoneyText)
+    SetWhite(QuestLogItemChooseText)
+    SetWhite(QuestLogItemReceiveText)
+    SetWhite(QuestLogSpellLearnText)
+    SetWhite(QuestLogTimerText)
+
+    for i = 1, MAX_OBJECTIVES do
+      SetWhite(_G["QuestLogObjective"..i])
+    end
+
+    for i = 1, MAX_NUM_ITEMS do
+      SetWhite(_G["QuestLogItem"..i.."Name"])
+      SetWhite(_G["QuestLogItem"..i.."Count"])
+    end
+  end
+
   do -- quest log frame
     QuestLogQuestCount:ClearAllPoints()
     QuestLogQuestCount:SetPoint("TOPRIGHT", -10, -30)
@@ -36,7 +66,6 @@ pfUI:RegisterSkin("Quest Log", function ()
     QuestLogFrameLevelsCheckButton:SetScript("OnClick", function()
       C.questlog.showQuestLevels = C.questlog.showQuestLevels == "1" and "0" or "1"
 
-      -- also update pfQuest's config
       if pfQuest_config and pfQuestConfig and pfQuestConfig.UpdateConfigEntries then
         pfQuest_config["questloglevel"] = C.questlog.showQuestLevels
         pfQuestConfig:UpdateConfigEntries()
@@ -96,11 +125,10 @@ pfUI:RegisterSkin("Quest Log", function ()
       QuestLogDetailScrollFrame:Show()
       QuestLogFrame:SetWidth(676)
       QuestLog_UpdateQuestDetails()
+      SetQuestLogTextWhite()
     end)
 
-    StripTextures(EmptyQuestLogFrame)
     EmptyQuestLogFrame:SetScript("OnShow", function()
-      -- trigger hide events
       if QuestLogDetailScrollFrame:IsShown() then
         QuestLogDetailScrollFrame:Hide()
       else
@@ -117,16 +145,17 @@ pfUI:RegisterSkin("Quest Log", function ()
   do -- left pane
     StripTextures(QuestLogListScrollFrame)
     SkinScrollbar(QuestLogListScrollFrameScrollBar)
-    StripTextures(QuestLogExpandButtonFrame) -- ?
+    StripTextures(QuestLogExpandButtonFrame)
     StripTextures(QuestLogCollapseAllButton)
     SkinCollapseButton(QuestLogCollapseAllButton, true)
 
-    -- collapse buttons
     QuestLogCollapseAllButton:ClearAllPoints()
     QuestLogCollapseAllButton:SetPoint("BOTTOMLEFT", QuestLogTitle1, "TOPLEFT", -6, 4)
-    for i = 1, QUESTS_DISPLAYED do SkinCollapseButton(_G["QuestLogTitle"..i]) end
 
-    -- quest list backdrop
+    for i = 1, QUESTS_DISPLAYED do
+      SkinCollapseButton(_G["QuestLogTitle"..i])
+    end
+
     local backdrop = CreateFrame("Frame", nil, QuestLogFrame)
     CreateBackdrop(backdrop, nil, nil, .75)
     backdrop.backdrop:SetPoint("TOPLEFT", QuestLogListScrollFrame, "TOPLEFT", -5, 5)
@@ -135,7 +164,6 @@ pfUI:RegisterSkin("Quest Log", function ()
     QuestLogTitle1:ClearAllPoints()
     QuestLogTitle1:SetPoint("TOPLEFT", QuestLogListScrollFrame, "TOPLEFT", 0, 0)
 
-    -- add additional scroll entries
     for i = 7, QUESTS_DISPLAYED do
       local b = _G["QuestLogTitle"..i] or CreateFrame("Button", "QuestLogTitle"..i, QuestLogFrame, "QuestLogTitleButtonTemplate")
       b:SetID(i)
@@ -155,29 +183,29 @@ pfUI:RegisterSkin("Quest Log", function ()
       end
 
       for i=1, QUESTS_DISPLAYED do
-        -- update tracked quest marks
         _G["QuestLogTitle"..i.."Check"]:ClearAllPoints()
         _G["QuestLogTitle"..i.."Check"]:SetPoint("RIGHT", _G["QuestLogTitle"..i], "LEFT", 24, 0)
 
-        -- update quest level
         if C.questlog.showQuestLevels == "1" then
           questIndex = i + FauxScrollFrame_GetOffset(QuestLogListScrollFrame)
+
           if questIndex <= numEntries then
             text, level, questTag, isHeader = GetQuestLogTitle(questIndex)
+
             if not isHeader then
               _G["QuestLogTitle"..i]:SetText(" ".."["..(questTag and level.."+" or level).."] "..text)
             end
           end
         end
       end
+
+      SetQuestLogTextWhite()
     end)
   end
 
   do -- right pane
     StripTextures(QuestLogDetailScrollFrame)
     SkinScrollbar(QuestLogDetailScrollFrameScrollBar)
-
-
 
     QuestLogDetailScrollFrame:ClearAllPoints()
     QuestLogDetailScrollFrame:SetPoint("TOPLEFT", QuestLogListScrollFrame, "TOPRIGHT", 35, 0)
@@ -186,15 +214,12 @@ pfUI:RegisterSkin("Quest Log", function ()
 
     local bg = QuestLogDetailScrollFrame:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
-    bg:SetTexCoord(.1,1,0,1)
-    bg:SetTexture("Interface\\Stationery\\StationeryTest1")
+    bg:SetTexture(0, 0, 0, .50)
 
-    -- quest log backdrop
-    CreateBackdrop(QuestLogDetailScrollFrame, nil, nil, .75)
+    CreateBackdrop(QuestLogDetailScrollFrame, nil, nil, 0)
     QuestLogDetailScrollFrame.backdrop:SetPoint("TOPLEFT", -5, 5)
     QuestLogDetailScrollFrame.backdrop:SetPoint("BOTTOMRIGHT", 26, -5)
 
-    -- skin item buttons
     for i = 1, MAX_NUM_ITEMS do
       local name = "QuestLogItem" .. i
       local item = _G[name]
@@ -223,6 +248,15 @@ pfUI:RegisterSkin("Quest Log", function ()
 
       title:SetParent(item.backdrop)
       title:SetDrawLayer("OVERLAY")
+
+      SetWhite(title)
+      SetWhite(count)
     end
+
+    hooksecurefunc("QuestLog_UpdateQuestDetails", function()
+      SetQuestLogTextWhite()
+    end)
   end
+
+  SetQuestLogTextWhite()
 end)
