@@ -10,8 +10,8 @@ Modified `gossipquest.lua`, `questlog.lua` and `itemtext.lua`
 - Background changed to black with a transparency of 50%;
 - Titles text changed to gold color;
 - Description text and Item Colors changed to white;
-- Buttons/Dialog options/Dialog menus changed to white.
-- Books / Posts: Removed parchment texture background and modified to be equal de gossipquest and questlog
+- Buttons/Dialog options/Dialog menus changed to white;
+- Books / Posts: Removed parchment texture background and modified to be like the changes made on the gossipquest and questlog.
 
 Now it feels more pfUI style.
 
