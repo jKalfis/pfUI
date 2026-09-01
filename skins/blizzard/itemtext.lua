@@ -1,4 +1,26 @@
 pfUI:RegisterSkin("Books", function ()
+  local function SetWhite(text)
+    if text then
+      text:SetTextColor(1, 1, 1, 1)
+      text:SetShadowColor(0, 0, 0, 1)
+      text:SetShadowOffset(1, -1)
+    end
+  end
+
+  local function SetGold(text)
+    if text then
+      text:SetTextColor(1, .82, 0, 1)
+      text:SetShadowColor(0, 0, 0, 1)
+      text:SetShadowOffset(1, -1)
+    end
+  end
+
+  local function SetItemTextColors()
+    SetGold(ItemTextTitleText)
+    SetWhite(ItemTextPageText)
+    SetWhite(ItemTextCurrentPage)
+  end
+
   StripTextures(ItemTextFrame)
   CreateBackdrop(ItemTextFrame, nil, nil, .75)
   CreateBackdropShadow(ItemTextFrame)
@@ -19,31 +41,31 @@ pfUI:RegisterSkin("Books", function ()
   ItemTextTitleText:SetPoint("TOP", ItemTextFrame.backdrop, "TOP", 0, -10)
 
   StripTextures(ItemTextScrollFrame)
-  CreateBackdrop(ItemTextScrollFrame, nil, true, .75)
+  CreateBackdrop(ItemTextScrollFrame, nil, true, 0)
   SkinScrollbar(ItemTextScrollFrameScrollBar)
   ItemTextScrollFrame:ClearAllPoints()
   ItemTextScrollFrame:SetPoint("TOPRIGHT", -66, -46)
 
-  -- add new background
+  -- black background
   local bg = ItemTextScrollFrame:CreateTexture(nil, "BORDER")
   bg:SetAllPoints()
-  bg:SetTexCoord(.1,1,0,1)
-  bg:SetTexture("Interface\\Stationery\\StationeryTest1")
+  bg:SetTexture(0, 0, 0, .50)
 
-  -- assign material backgrounds to the default one
+  -- force black background instead of parchment
   ItemTextMaterialTopLeft.SetTexture = function(self, texture)
-    bg:SetTexture(texture)
+    bg:SetTexture(0, 0, 0, .50)
   end
 
   ItemTextMaterialTopLeft.Hide = function()
-    bg:SetTexture("Interface\\Stationery\\StationeryTest1")
+    bg:SetTexture(0, 0, 0, .50)
   end
 
-  -- disable meterial backgrounds
+  -- disable material backgrounds
   ItemTextMaterialTopLeft.Show = function() return end
   ItemTextMaterialTopRight.Show = function() return end
   ItemTextMaterialBotLeft.Show = function() return end
   ItemTextMaterialBotRight.Show = function() return end
+
   ItemTextMaterialTopLeft:Hide()
   ItemTextMaterialTopRight:Hide()
   ItemTextMaterialBotLeft:Hide()
@@ -51,16 +73,20 @@ pfUI:RegisterSkin("Books", function ()
 
   ItemTextCurrentPage:ClearAllPoints()
   ItemTextCurrentPage:SetPoint("TOP", ItemTextScrollFrame, "BOTTOM", 0, -10)
+
   local orig_SetText = ItemTextCurrentPage.SetText
   ItemTextCurrentPage.SetText = function(self, text)
     text = format(PAGE_NUMBER, text)
     orig_SetText(self, text)
+    SetWhite(self)
   end
 
   ItemTextCurrentPage:SetFontObject("GameFontWhite")
+
   SkinArrowButton(ItemTextPrevPageButton, "left", 18)
   ItemTextPrevPageButton:ClearAllPoints()
   ItemTextPrevPageButton:SetPoint("TOPLEFT", ItemTextScrollFrame, "BOTTOMLEFT", 0, -6)
+
   SkinArrowButton(ItemTextNextPageButton, "right", 18)
   ItemTextNextPageButton:ClearAllPoints()
   ItemTextNextPageButton:SetPoint("TOPRIGHT", ItemTextScrollFrame, "BOTTOMRIGHT", 0, -6)
@@ -80,10 +106,20 @@ pfUI:RegisterSkin("Books", function ()
     ItemTextScrollFrame.Hide = function(self) end
     ItemTextScrollFrameScrollBar.Show = function(self) self.thumb:Show() end
     ItemTextScrollFrameScrollBar.Hide = function(self) self.thumb:Hide() end
-    ItemTextScrollFrameScrollBarScrollUpButton.Show = function(self) if self:GetParent():GetValue() ~= 0 then self:Enable() end end
-    ItemTextScrollFrameScrollBarScrollUpButton.Hide = function(self) self:Disable() end
-    ItemTextScrollFrameScrollBarScrollDownButton.Show = function(self) self:Enable() end
-    ItemTextScrollFrameScrollBarScrollDownButton.Hide = function(self) self:Disable() end
+    ItemTextScrollFrameScrollBarScrollUpButton.Show = function(self)
+      if self:GetParent():GetValue() ~= 0 then
+        self:Enable()
+      end
+    end
+    ItemTextScrollFrameScrollBarScrollUpButton.Hide = function(self)
+      self:Disable()
+    end
+    ItemTextScrollFrameScrollBarScrollDownButton.Show = function(self)
+      self:Enable()
+    end
+    ItemTextScrollFrameScrollBarScrollDownButton.Hide = function(self)
+      self:Disable()
+    end
 
     local first
     ItemTextFrame:HookScript("OnShow", function()
@@ -96,6 +132,8 @@ pfUI:RegisterSkin("Books", function ()
         ItemTextScrollFrameScrollBarScrollDownButton:Hide()
         first = true
       end
+
+      SetItemTextColors()
     end)
   end
 
@@ -105,4 +143,6 @@ pfUI:RegisterSkin("Books", function ()
   ItemTextStatusBar:SetHeight(12)
   ItemTextStatusBar:ClearAllPoints()
   ItemTextStatusBar:SetPoint("BOTTOM", ItemTextScrollFrame, "BOTTOM", 0, 50)
+
+  SetItemTextColors()
 end)
